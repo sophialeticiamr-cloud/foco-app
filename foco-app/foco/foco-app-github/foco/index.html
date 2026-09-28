@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#17121f">
+  <meta name="description" content="Foco — estudos, produtividade e organização de casal.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <title>Foco ✨</title>
+</head>
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">seu espaço de foco</p>
+      <h1>Foco <span>✨</span></h1>
+    </div>
+    <button class="icon-button" id="installBtn" hidden title="Instalar aplicativo">＋</button>
+  </header>
+
+  <nav class="tabbar" aria-label="Módulos">
+    <button class="tab active" data-view="focus" title="Foco">⏱️</button>
+    <button class="tab" data-view="tasks" title="Tarefas">🎀</button>
+    <button class="tab" data-view="couple" title="Casal">💘</button>
+    <button class="tab" data-view="dates" title="Encontros">🌸</button>
+    <button class="tab emergency-tab" data-view="rescue" title="Resgate">🆘</button>
+  </nav>
+
+  <main>
+    <!-- MÓDULO 1 -->
+    <section class="view active" id="view-focus">
+      <div class="hero-card card">
+        <div class="status-line">
+          <span id="focusStatus">📖 pronta pra estudar</span>
+          <span class="live-dot" id="liveDot" hidden></span>
+        </div>
+
+        <div class="timer" id="studyTimer">00:00:00</div>
+
+        <div class="timer-mode">
+          <span class="mode-pill active" id="studyModePill">estudo</span>
+          <span class="mode-pill" id="restModePill">descanso <b id="restTimer">00:00</b></span>
+        </div>
+
+        <div class="field-grid">
+          <label>
+            Matéria
+            <input id="subjectInput" type="text" maxlength="80" placeholder="Ex.: Farmacologia">
+          </label>
+          <label>
+            Motivo
+            <input id="reasonInput" type="text" maxlength="120" placeholder="Ex.: tirar nota máxima na prática">
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button class="primary-button" id="startPauseBtn">▶ Começar</button>
+          <button class="secondary-button" id="finishBtn" disabled>💾 Encerrar</button>
+        </div>
+
+        <div class="micro-actions">
+          <button class="text-button" id="resetBtn">↺ zerar</button>
+          <span id="sessionHint">A sessão só entra no seu histórico quando for encerrada.</span>
+        </div>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <span>Hoje ✨</span>
+          <strong id="todayStudy">00:00:00</strong>
+          <small>tempo estudado</small>
+        </div>
+        <div class="stat-card card">
+          <span>Esta semana</span>
+          <strong id="weekStudy">00:00:00</strong>
+          <small>tempo estudado</small>
+        </div>
+      </div>
+
+      <div class="card session-card">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">histórico</span>
+            <h2>Últimas sessões</h2>
+          </div>
+          <button class="text-button" id="clearSessionsBtn">limpar</button>
+        </div>
+        <div id="sessionList" class="session-list"></div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 2 -->
+    <section class="view" id="view-tasks">
+      <div class="section-heading">
+        <span class="eyebrow">🎀 produtividade</span>
+        <h2>Metas de hoje</h2>
+        <p>Transforme o que está na cabeça em pequenas ações visíveis.</p>
+      </div>
+
+      <div class="card task-form">
+        <input id="taskInput" type="text" maxlength="120" placeholder="Ex.: revisar ciclo de Krebs">
+        <button class="primary-button" id="addTaskBtn">＋ Adicionar</button>
+      </div>
+
+      <div class="progress-card card">
+        <div class="progress-header">
+          <span>Progresso do dia</span>
+          <strong id="taskProgressText">0%</strong>
+        </div>
+        <div class="progress-track"><div id="taskProgressBar" class="progress-fill"></div></div>
+        <div class="progress-footer">
+          <span id="taskCountText">0 de 0 concluídas</span>
+          <span id="taskStudySummary">00:00:00 estudadas</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">checklist</span>
+            <h2>Suas tarefas</h2>
+          </div>
+          <button class="text-button" id="clearDoneBtn">concluídas</button>
+        </div>
+        <div id="taskList" class="task-list"></div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 3 -->
+    <section class="view" id="view-couple">
+      <div class="section-heading">
+        <span class="eyebrow">💘 conexão</span>
+        <h2>Nosso placar</h2>
+        <p>Um espaço compartilhado para acompanhar a semana em tempo real.</p>
+      </div>
+
+      <div class="card couple-setup" id="coupleSetup">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">primeiro acesso</span>
+            <h2>Conectar vocês dois</h2>
+          </div>
+        </div>
+        <label>
+          Seu nome
+          <input id="myNameInput" maxlength="30" placeholder="Ex.: Sophia">
+        </label>
+        <label>
+          Código do casal
+          <div class="inline-input">
+            <input id="roomInput" maxlength="12" placeholder="Ex.: ROSA2026">
+            <button class="secondary-button" id="generateRoomBtn">gerar</button>
+          </div>
+        </label>
+        <button class="primary-button full" id="connectCoupleBtn">💘 Conectar</button>
+        <p class="helper">O código funciona como a chave do espaço compartilhado. Para duas pessoas usarem o mesmo placar, elas devem informar o mesmo código.</p>
+      </div>
+
+      <div id="coupleDashboard" hidden>
+        <div class="card couple-room-bar">
+          <span>💘 Sala <strong id="roomLabel">—</strong></span>
+          <span id="firebaseStatus" class="status-badge">local</span>
+          <button class="text-button" id="disconnectBtn">trocar sala</button>
+        </div>
+
+        <div class="scoreboard">
+          <div class="score-card card">
+            <div class="score-top"><span id="meName">Você</span><span id="meLive" class="presence offline">offline</span></div>
+            <strong id="meWeek">00h 00m</strong>
+            <small>nesta semana</small>
+          </div>
+          <div class="score-card card">
+            <div class="score-top"><span id="partnerName">Seu namorado</span><span id="partnerLive" class="presence offline">offline</span></div>
+            <strong id="partnerWeek">00h 00m</strong>
+            <small>nesta semana</small>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">ao vivo</span>
+              <h2>O que está acontecendo</h2>
+            </div>
+          </div>
+          <div id="liveMessage" class="empty-state">Conecte os dois dispositivos com o mesmo código.</div>
+        </div>
+
+        <div class="card technical-note">
+          <strong>Banco de dados</strong>
+          <p>O aplicativo funciona sozinho com armazenamento local. Para o placar entre dois computadores/celulares, configure o Firebase conforme o README. Sem Firebase, esta tela continua disponível, mas não sincroniza entre dispositivos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 4 -->
+    <section class="view" id="view-dates">
+      <div class="section-heading">
+        <span class="eyebrow">🌸 date night</span>
+        <h2>O que vamos fazer?</h2>
+        <p>Escolham um orçamento e deixem o acaso decidir.</p>
+      </div>
+
+      <div class="card date-picker">
+        <div class="budget-grid" id="budgetGrid">
+          <button class="budget-option active" data-budget="0">R$ 0</button>
+          <button class="budget-option" data-budget="50">Até R$ 50</button>
+          <button class="budget-option" data-budget="100">R$ 51–100</button>
+          <button class="budget-option" data-budget="101">Mais de R$ 100</button>
+        </div>
+        <button class="primary-button full" id="drawDateBtn">🌸 Sortear encontro</button>
+      </div>
+
+      <div class="date-result card" id="dateResult">
+        <span class="eyebrow">resultado</span>
+        <div class="date-emoji">🌷</div>
+        <h2 id="dateTitle">Seu encontro aparece aqui</h2>
+        <p id="dateDescription">O sorteio considera o orçamento selecionado.</p>
+        <div class="date-meta" id="dateMeta">—</div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">banco de ideias</span>
+            <h2>Encontros disponíveis</h2>
+          </div>
+        </div>
+        <div id="dateBank" class="date-bank"></div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 5 -->
+    <section class="view" id="view-rescue">
+      <div class="rescue-card">
+        <div class="rescue-symbol">🆘</div>
+        <span class="eyebrow">pare por um minuto</span>
+        <h2 id="rescueTitle">Vai mesmo desistir?</h2>
+        <p id="rescuePhrase">Você não precisa resolver a sua vida inteira hoje. Só precisa decidir o próximo passo.</p>
+
+        <div class="reason-box">
+          <span>Por que você começou?</span>
+          <strong id="rescueReason">Sua formação. Seus planos. A vida que você está construindo.</strong>
+          <p id="rescueDynamicReason">Seu objetivo atual pode aparecer aqui quando você estiver estudando.</p>
+        </div>
+
+        <div class="rescue-actions">
+          <button class="primary-button" id="returnToStudyBtn">📖 Ok, vou voltar pros livros</button>
+          <button class="secondary-button" id="restWithoutGuiltBtn">💤 Estou no meu limite, vou descansar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <!-- Firebase é carregado como módulos; o app funciona sem ele e usa localStorage. -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
