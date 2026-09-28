@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15111c">
+  <title>Foco ✨</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-status="idle">
+  <main class="app">
+    <nav class="tabs" aria-label="Módulos">
+      <button class="tab on" title="Foco">⏱️</button>
+      <button class="tab" disabled title="Tarefas (em breve)">🎀</button>
+      <button class="tab" disabled title="Casal (em breve)">💘</button>
+      <button class="tab" disabled title="Date night (em breve)">🌸</button>
+      <button class="tab" disabled title="Vai mesmo desistir? (em breve)">🆘</button>
+    </nav>
+
+    <section class="card focus">
+      <p class="mode" id="mode">📖 pronta pra estudar</p>
+      <div class="time" id="time">00:00:00</div>
+      <div class="rest" id="restBox" hidden>☕ descanso <b id="restTime">00:00:00</b></div>
+
+      <label>Matéria
+        <input id="materia" placeholder="Ex: Farmacologia" autocomplete="off">
+      </label>
+      <label>Motivo
+        <input id="motivo" placeholder="Ex: tirar nota máxima na prática" autocomplete="off">
+      </label>
+
+      <div class="row">
+        <button id="btnMain" class="primary">▶ Começar</button>
+        <button id="btnFinish" class="ghost" disabled>💾 Encerrar</button>
+      </div>
+    </section>
+
+    <section class="card today">
+      <h2>Hoje ✨ <span id="total">00:00:00</span></h2>
+      <ul id="list"></ul>
+      <p class="empty" id="empty">Nenhuma sessão ainda. Bora? 🌸</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
